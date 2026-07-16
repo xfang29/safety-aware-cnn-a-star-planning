@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from src.cost_maps import SafetyCostMaps
+from src.labels import PathLabelMaps
 from src.planners import (
     AStarResult,
     CostAwareAStarResult,
+    GridPoint,
 )
 from src.scene_generator import DrivingScene
-
-
 def plot_safety_cost_maps(
     scene: DrivingScene,
     cost_maps: SafetyCostMaps,
@@ -218,6 +218,98 @@ def plot_path_comparison(
     axes[1].legend(
         loc="upper right"
     )
+
+    plt.tight_layout()
+    plt.show()
+
+def plot_path_label_maps(
+    scene: DrivingScene,
+    label_maps: PathLabelMaps,
+    expert_path: list[GridPoint],
+) -> None:
+    """
+    Visualize the binary expert path, distance transform,
+    Gaussian soft label, and expert path overlay.
+    """
+    fig, axes = plt.subplots(
+        2,
+        2,
+        figsize=(11, 9),
+    )
+
+    axes[0, 0].imshow(
+        label_maps.path_mask,
+        origin="upper",
+    )
+    axes[0, 0].set_title(
+        "Binary Expert Path Mask"
+    )
+
+    visible_distance = np.where(
+        scene.free_space,
+        label_maps.distance_to_path,
+        np.nan,
+    )
+
+    distance_image = axes[0, 1].imshow(
+        visible_distance,
+        origin="upper",
+    )
+    axes[0, 1].set_title(
+        "Distance to Expert Path"
+    )
+
+    fig.colorbar(
+        distance_image,
+        ax=axes[0, 1],
+        fraction=0.046,
+        pad=0.04,
+    )
+
+    soft_label_image = axes[1, 0].imshow(
+        label_maps.soft_path_label,
+        origin="upper",
+        vmin=0.0,
+        vmax=1.0,
+    )
+    axes[1, 0].set_title(
+        "Gaussian Soft Path Label"
+    )
+
+    fig.colorbar(
+        soft_label_image,
+        ax=axes[1, 0],
+        fraction=0.046,
+        pad=0.04,
+    )
+
+    _plot_scene_background(
+        axes[1, 1],
+        scene,
+    )
+
+    if expert_path:
+        path_array = np.asarray(
+            expert_path,
+            dtype=np.int64,
+        )
+
+        axes[1, 1].plot(
+            path_array[:, 1],
+            path_array[:, 0],
+            linewidth=2.5,
+            label="Expert path",
+        )
+
+    axes[1, 1].set_title(
+        "Expert Path on Driving Scene"
+    )
+    axes[1, 1].legend(
+        loc="upper right"
+    )
+
+    for axis in axes.ravel():
+        axis.set_aspect("equal")
 
     plt.tight_layout()
     plt.show()
