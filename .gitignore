@@ -1,0 +1,10 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# VS Code
+.vscode/
+
+# Jupyter cache
+.ipynb_checkpoints/
