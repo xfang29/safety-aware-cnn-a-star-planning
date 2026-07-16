@@ -8,3 +8,7 @@ __pycache__/
 
 # Jupyter cache
 .ipynb_checkpoints/
+
+# Generated datasets
+data/processed/*
+!data/processed/README.md
