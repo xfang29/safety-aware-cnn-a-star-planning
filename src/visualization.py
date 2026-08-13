@@ -319,6 +319,7 @@ def plot_three_path_comparison(
     standard_result: AStarResult,
     expert_result: CostAwareAStarResult,
     cnn_result: CostAwareAStarResult,
+    save_path: str | None = None,
 ) -> None:
     """
     Compare standard A*, expert A*, and CNN-guided A* paths.
@@ -381,4 +382,12 @@ def plot_three_path_comparison(
         )
 
     plt.tight_layout()
+
+    if save_path is not None:
+        plt.savefig(
+            save_path,
+            dpi=300,
+            bbox_inches="tight",
+         )
+
     plt.show()

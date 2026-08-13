@@ -1,37 +1,37 @@
 {
   "H1_distance_to_expert": {
     "reference_mean": 1.7079469744811504,
-    "comparison_mean": 0.4220536015784716,
-    "mean_difference": -1.2858933729026785,
-    "median_difference": -1.0365949644120693,
-    "statistic": 191.0,
-    "p_value": 5.073977272751045e-16
+    "comparison_mean": 0.3611837649948302,
+    "mean_difference": -1.3467632094863202,
+    "median_difference": -1.0608380256645482,
+    "statistic": 20.0,
+    "p_value": 3.55814355585135e-18
   },
   "H2a_obstacle_clearance": {
     "reference_mean": 1.21064495102246,
-    "comparison_mean": 2.0037515060614304,
-    "mean_difference": 0.7931065550389708,
+    "comparison_mean": 2.010614421071583,
+    "mean_difference": 0.7999694700491233,
     "median_difference": 1.0,
-    "statistic": 2120.5,
-    "p_value": 8.584264464631374e-13
+    "statistic": 2252.5,
+    "p_value": 2.7386102352748405e-13
   },
   "H2b_lane_deviation": {
     "reference_mean": 1.6475898358618257,
-    "comparison_mean": 1.2885138274334715,
-    "mean_difference": -0.35907600842835435,
-    "median_difference": -0.22033681111506487,
-    "statistic": 1442.0,
-    "p_value": 9.815984142650142e-05
+    "comparison_mean": 1.3001236754200696,
+    "mean_difference": -0.3474661604417561,
+    "median_difference": -0.21991352367713068,
+    "statistic": 1510.0,
+    "p_value": 0.00024160091807191145
   },
   "path_length_comparison": {
     "reference_mean": 61.288174593052005,
-    "comparison_mean": 63.001181079435895,
-    "mean_difference": 1.7130064863838776,
+    "comparison_mean": 62.92804399444604,
+    "mean_difference": 1.6398694013940298,
     "median_difference": 1.6568542494923761,
-    "statistic": 0.0,
-    "p_value": 1.6242858748332606e-16
+    "statistic": 5.0,
+    "p_value": 1.3142622276495904e-16
   },
   "standard_success_rate": 1.0,
   "cnn_success_rate": 1.0,
-  "cnn_path_length_increase_percent": 2.7950032738910835
+  "cnn_path_length_increase_percent": 2.6756701635880287
 }
