@@ -165,3 +165,58 @@ def evaluate_path(
         mean_turn_angle=mean_turn_angle,
         total_turn_angle=total_turn_angle,
     )
+
+def symmetric_path_distance(
+    path_a: list[GridPoint],
+    path_b: list[GridPoint],
+) -> float:
+    """
+    Calculate the symmetric mean nearest-neighbor distance
+    between two grid paths.
+
+    A smaller value indicates that the two paths are more similar.
+    """
+    if not path_a or not path_b:
+        return np.inf
+
+    points_a = np.asarray(
+        path_a,
+        dtype=np.float64,
+    )
+
+    points_b = np.asarray(
+        path_b,
+        dtype=np.float64,
+    )
+
+    differences = (
+        points_a[:, None, :]
+        - points_b[None, :, :]
+    )
+
+    pairwise_distances = np.linalg.norm(
+        differences,
+        axis=2,
+    )
+
+    distance_a_to_b = np.mean(
+        np.min(
+            pairwise_distances,
+            axis=1,
+        )
+    )
+
+    distance_b_to_a = np.mean(
+        np.min(
+            pairwise_distances,
+            axis=0,
+        )
+    )
+
+    return float(
+        0.5
+        * (
+            distance_a_to_b
+            + distance_b_to_a
+        )
+    )

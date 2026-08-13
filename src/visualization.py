@@ -313,3 +313,72 @@ def plot_path_label_maps(
 
     plt.tight_layout()
     plt.show()
+
+def plot_three_path_comparison(
+    scene: DrivingScene,
+    standard_result: AStarResult,
+    expert_result: CostAwareAStarResult,
+    cnn_result: CostAwareAStarResult,
+) -> None:
+    """
+    Compare standard A*, expert A*, and CNN-guided A* paths.
+    """
+    fig, axes = plt.subplots(
+        1,
+        3,
+        figsize=(16, 6),
+    )
+
+    results = [
+        (
+            "Standard A*",
+            standard_result.path,
+            standard_result.path_length,
+        ),
+        (
+            "Safety-Aware Expert A*",
+            expert_result.path,
+            expert_result.geometric_length,
+        ),
+        (
+            "CNN-Guided A*",
+            cnn_result.path,
+            cnn_result.geometric_length,
+        ),
+    ]
+
+    for axis, (
+        title,
+        path,
+        path_length,
+    ) in zip(axes, results):
+
+        _plot_scene_background(
+            axis,
+            scene,
+        )
+
+        if path:
+            path_array = np.asarray(
+                path,
+                dtype=np.int64,
+            )
+
+            axis.plot(
+                path_array[:, 1],
+                path_array[:, 0],
+                linewidth=2.5,
+                label="Planned path",
+            )
+
+        axis.set_title(
+            f"{title}\n"
+            f"Length: {path_length:.2f}"
+        )
+
+        axis.legend(
+            loc="upper right"
+        )
+
+    plt.tight_layout()
+    plt.show()
